@@ -21,7 +21,12 @@ int main(int argc, char *argv[])
         udp_ip = argv[1];
     }
     if (argc > 2) {
-        udp_port = (uint16_t)atoi(argv[2]);
+        long port_value = atol(argv[2]);
+        if (port_value <= 0 || port_value > 65535) {
+            fprintf(stderr, "Error: Invalid port number. Must be between 1 and 65535.\n");
+            return 1;
+        }
+        udp_port = (uint16_t)port_value;
     }
     
     printf("SHT3x Temperature Reader\n");
@@ -83,7 +88,7 @@ int main(int argc, char *argv[])
     }
     
     /* Cleanup (will never reach here in this example) */
-    udp_sender_close();
+    pl_hw_cleanup();
     
     return 0;
 }

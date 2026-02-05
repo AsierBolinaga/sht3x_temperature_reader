@@ -154,8 +154,12 @@ int pl_udp_send(const uint8_t *data, uint16_t len)
     ssize_t sent = sendto(udp_socket, data, len, 0,
                           (struct sockaddr *)&udp_dest_addr,
                           sizeof(udp_dest_addr));
-    if (sent != len) {
+    if (sent < 0) {
         perror("Failed to send UDP packet");
+        return -1;
+    }
+    if (sent != (ssize_t)len) {
+        fprintf(stderr, "Partial UDP send: %zd of %u bytes\n", sent, len);
         return -1;
     }
     return 0;
@@ -173,16 +177,30 @@ void pl_udp_close(void)
         close(udp_socket);
         udp_socket = -1;
     }
-    if (i2c_fd >= 0) {
-        close(i2c_fd);
-        i2c_fd = -1;
-    }
 #elif USE_FREERTOS
     /* Close lwIP socket */
     /* if (udp_socket >= 0) { */
     /*     close(udp_socket); */
     /* } */
 #endif
+}
+
+void pl_i2c_close(void)
+{
+#if USE_LINUX
+    if (i2c_fd >= 0) {
+        close(i2c_fd);
+        i2c_fd = -1;
+    }
+#elif USE_FREERTOS
+    /* Deinitialize I2C peripheral */
+#endif
+}
+
+void pl_hw_cleanup(void)
+{
+    pl_udp_close();
+    pl_i2c_close();
 }
 
 void pl_delay_ms(uint32_t ms)

@@ -27,9 +27,8 @@ else ifeq ($(PLATFORM),IMXRT1050)
     # Add FreeRTOS and SDK include paths here
     # CFLAGS += -I/path/to/freertos/include
     # CFLAGS += -I/path/to/sdk/devices/MIMXRT1052/drivers
-    LDFLAGS = 
-    # Add linker script and libraries here
-    # LDFLAGS += -T MIMXRT1052xxxxx_flexspi_nor.ld
+    # Add linker script and libraries during SDK integration
+    LDFLAGS =
 else
     $(error Unknown PLATFORM: $(PLATFORM). Use BEAGLEBONE or IMXRT1050)
 endif

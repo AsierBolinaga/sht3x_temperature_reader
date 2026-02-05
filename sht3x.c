@@ -4,6 +4,9 @@
 #include <string.h>
 
 /* SHT3x Commands */
+/* High repeatability provides most accurate measurements (15.5ms conversion time) */
+/* Medium repeatability balances accuracy and speed (6.5ms conversion time) */
+/* Low repeatability is fastest but less accurate (4.5ms conversion time) */
 #define SHT3X_CMD_MEASURE_HIGH_REP    0x2400  /* High repeatability measurement */
 #define SHT3X_CMD_MEASURE_MEDIUM_REP  0x240B  /* Medium repeatability measurement */
 #define SHT3X_CMD_MEASURE_LOW_REP     0x2416  /* Low repeatability measurement */

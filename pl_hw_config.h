@@ -58,6 +58,16 @@ int pl_udp_send(const uint8_t *data, uint16_t len);
 void pl_udp_close(void);
 
 /**
+ * @brief Close I2C interface
+ */
+void pl_i2c_close(void);
+
+/**
+ * @brief Cleanup all hardware resources
+ */
+void pl_hw_cleanup(void);
+
+/**
  * @brief Delay in milliseconds
  * @param ms Milliseconds to delay
  */

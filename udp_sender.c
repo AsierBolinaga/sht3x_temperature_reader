@@ -19,6 +19,7 @@ int udp_send_temperature(float temperature, float humidity)
                    temperature, humidity);
     
     if (len < 0 || (size_t)len >= sizeof(buffer)) {
+        fprintf(stderr, "Error: Failed to format temperature data (buffer overflow)\n");
         return -1;
     }
     
