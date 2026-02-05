@@ -1,0 +1,25 @@
+# Build artifacts
+*.o
+*.elf
+*.bin
+*.hex
+*.map
+sht3x_temperature_reader
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Debug files
+*.log
+core
+
+# Temporary files
+/tmp/
