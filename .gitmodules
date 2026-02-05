@@ -1,0 +1,3 @@
+[submodule "portability_layer"]
+	path = portability_layer
+	url = https://gitlab.internal.ainguraiiot.com/abolinaga/portability_layer.git
