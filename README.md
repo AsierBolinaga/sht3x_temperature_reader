@@ -1,4 +1,4 @@
-# sht3x_tempreader
+# sht3x temperature reader
 
 Implementation of sht3x sensor temperature reader c program.
 
