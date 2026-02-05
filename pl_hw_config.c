@@ -70,8 +70,13 @@ int pl_i2c_write(uint8_t addr, const uint8_t *data, uint16_t len)
         return -1;
     }
     
-    if (write(i2c_fd, data, len) != len) {
+    ssize_t written = write(i2c_fd, data, len);
+    if (written < 0) {
         perror("Failed to write to I2C device");
+        return -1;
+    }
+    if (written != (ssize_t)len) {
+        fprintf(stderr, "Partial I2C write: %zd of %u bytes\n", written, len);
         return -1;
     }
     return 0;
@@ -95,8 +100,13 @@ int pl_i2c_read(uint8_t addr, uint8_t *data, uint16_t len)
         return -1;
     }
     
-    if (read(i2c_fd, data, len) != len) {
+    ssize_t bytes_read = read(i2c_fd, data, len);
+    if (bytes_read < 0) {
         perror("Failed to read from I2C device");
+        return -1;
+    }
+    if (bytes_read != (ssize_t)len) {
+        fprintf(stderr, "Partial I2C read: %zd of %u bytes\n", bytes_read, len);
         return -1;
     }
     return 0;
